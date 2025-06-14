@@ -116,4 +116,134 @@ function optimizeForPrint() {
     document.head.appendChild(style);
 }
 
-optimizeForPrint(); 
+optimizeForPrint();
+
+/*===== NEWSLETTER MODAL =====*/
+let newsletterModal;
+let newsletterCloseBtn;
+let newsletterForm;
+let newsletterOverlay;
+let newsletterTimer;
+
+function initNewsletterModal() {
+    newsletterModal = document.getElementById('newsletter-modal');
+    newsletterCloseBtn = document.getElementById('newsletter-close');
+    newsletterForm = document.getElementById('newsletter-form');
+    newsletterOverlay = newsletterModal?.querySelector('.newsletter-modal__overlay');
+
+    // Check if modal exists (only on main page)
+    if (!newsletterModal) return;
+
+    // Check if newsletter was already shown in this session
+    if (sessionStorage.getItem('newsletterShown')) return;
+
+    // Show newsletter after 20 seconds
+    newsletterTimer = setTimeout(showNewsletterModal, 20000);
+
+    // Close modal events
+    if (newsletterCloseBtn) {
+        newsletterCloseBtn.addEventListener('click', closeNewsletterModal);
+    }
+
+    if (newsletterOverlay) {
+        newsletterOverlay.addEventListener('click', closeNewsletterModal);
+    }
+
+    // Form submission
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', handleNewsletterSubmission);
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && newsletterModal && newsletterModal.classList.contains('show')) {
+            closeNewsletterModal();
+        }
+    });
+}
+
+function showNewsletterModal() {
+    if (newsletterModal && !sessionStorage.getItem('newsletterShown')) {
+        newsletterModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        
+        // Mark as shown in session
+        sessionStorage.setItem('newsletterShown', 'true');
+        
+        // Clear the timer
+        if (newsletterTimer) {
+            clearTimeout(newsletterTimer);
+        }
+    }
+}
+
+function closeNewsletterModal() {
+    if (newsletterModal) {
+        newsletterModal.classList.remove('show');
+        document.body.style.overflow = '';
+        
+        // Clear timer if modal is closed before 20 seconds
+        if (newsletterTimer) {
+            clearTimeout(newsletterTimer);
+        }
+    }
+}
+
+function handleNewsletterSubmission(e) {
+    e.preventDefault();
+    
+    const emailInput = document.getElementById('newsletter-email');
+    const email = emailInput?.value;
+    
+    if (!email) return;
+    
+    // Show loading state
+    const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+    submitBtn.disabled = true;
+    
+    // Simulate API call (replace with actual newsletter service)
+    setTimeout(() => {
+        // Success state
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+        submitBtn.style.backgroundColor = 'var(--secondary-color)';
+        
+        // Show success message
+        const successMessage = document.createElement('div');
+        successMessage.className = 'newsletter-success';
+        successMessage.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <p>Thank you for subscribing! Check your email for confirmation.</p>
+        `;
+        successMessage.style.cssText = `
+            text-align: center;
+            color: var(--secondary-color);
+            margin-top: var(--mb-1);
+            padding: var(--mb-1);
+            background: rgba(var(--secondary-color-rgb), 0.1);
+            border-radius: 0.5rem;
+        `;
+        
+        newsletterForm.appendChild(successMessage);
+        
+        // Close modal after 3 seconds
+        setTimeout(() => {
+            closeNewsletterModal();
+        }, 3000);
+        
+        // Mark as subscribed to prevent showing again
+        localStorage.setItem('newsletterSubscribed', 'true');
+        
+    }, 2000);
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if user already subscribed
+    if (localStorage.getItem('newsletterSubscribed')) {
+        return; // Don't show modal if already subscribed
+    }
+    
+    initNewsletterModal();
+}); 

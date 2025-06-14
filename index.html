@@ -69,6 +69,9 @@
                         <a href="#alliances" class="nav__link">Alliances</a>
                     </li>
                     <li class="nav__item">
+                        <a href="#blog" class="nav__link">Blog</a>
+                    </li>
+                    <li class="nav__item">
                         <a href="#contact" class="nav__link">Contact</a>
                     </li>
                 </ul>
@@ -308,7 +311,7 @@
                 <div class="team__container">
                     <div class="team__member">
                         <div class="team__photo">
-                            <img src="assets/images/alan-myers.jpg" 
+                            <img src="assets/images/alan.png" 
                                  alt="Alan Myers, Principal at Dovetail Wealth Partners"
                                  width="300" 
                                  height="300"
@@ -325,7 +328,7 @@
 
                     <div class="team__member">
                         <div class="team__photo">
-                            <img src="assets/images/glenn-farkas.jpg" 
+                            <img src="assets/images/glenn.png" 
                                  alt="Glenn Farkas, Principal at Dovetail Wealth Partners"
                                  width="300" 
                                  height="300"
@@ -342,7 +345,7 @@
 
                     <div class="team__member">
                         <div class="team__photo">
-                            <img src="assets/images/joanna-jelenski.jpg" 
+                            <img src="assets/images/joanna.png" 
                                  alt="Joanna Jelenski, Operations Manager at Dovetail Wealth Partners"
                                  width="300" 
                                  height="300"
@@ -359,7 +362,7 @@
 
                     <div class="team__member">
                         <div class="team__photo">
-                            <img src="assets/images/leo-levinson.jpg" 
+                            <img src="assets/images/leo.png" 
                                  alt="Leo Levinson, Analyst at Dovetail Wealth Partners"
                                  width="300" 
                                  height="300"
@@ -449,14 +452,14 @@
                         </div>
                         <div class="blog__content">
                             <div class="blog__meta">
-                                <span class="blog__date">March 15, 2024</span>
-                                <span class="blog__category">Investment Strategy</span>
+                                <span class="blog__date">November 15, 2024</span>
+                                <span class="blog__category">Business Strategy</span>
                             </div>
-                            <h3 class="blog__title">Navigating Market Volatility: A Strategic Approach for Entrepreneurs</h3>
+                            <h3 class="blog__title">Key Considerations for a Successful Exit Strategy</h3>
                             <p class="blog__excerpt">
-                                Learn how successful entrepreneurs can maintain their investment focus during uncertain market conditions...
+                                Learn the essential elements for planning a successful business exit that maximizes value and ensures smooth transition...
                             </p>
-                            <a href="#" class="blog__link">Read More <i class="fas fa-arrow-right"></i></a>
+                            <a href="assets/documents/exit-strategy-guide.pdf" target="_blank" class="blog__link">Read More <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </article>
 
@@ -468,14 +471,14 @@
                         </div>
                         <div class="blog__content">
                             <div class="blog__meta">
-                                <span class="blog__date">March 8, 2024</span>
-                                <span class="blog__category">Retirement Planning</span>
+                                <span class="blog__date">October 28, 2024</span>
+                                <span class="blog__category">Travel & Lifestyle</span>
                             </div>
-                            <h3 class="blog__title">Maximizing Your Retirement Savings: Beyond the Traditional 401(k)</h3>
+                            <h3 class="blog__title">The Ultimate Guide to Door County</h3>
                             <p class="blog__excerpt">
-                                Discover advanced retirement planning strategies that go beyond basic employer-sponsored plans...
+                                Discover the hidden gems and must-visit destinations in Wisconsin's beautiful Door County peninsula...
                             </p>
-                            <a href="#" class="blog__link">Read More <i class="fas fa-arrow-right"></i></a>
+                            <a href="assets/documents/door-county-guide.pdf" target="_blank" class="blog__link">Read More <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </article>
 
@@ -487,22 +490,21 @@
                         </div>
                         <div class="blog__content">
                             <div class="blog__meta">
-                                <span class="blog__date">February 28, 2024</span>
-                                <span class="blog__category">Tax Planning</span>
+                                <span class="blog__date">October 12, 2024</span>
+                                <span class="blog__category">Business Transition</span>
                             </div>
-                            <h3 class="blog__title">Tax-Efficient Wealth Transfer Strategies for High-Net-Worth Families</h3>
+                            <h3 class="blog__title">Are You Emotionally Ready to Transition Your Business?</h3>
                             <p class="blog__excerpt">
-                                Explore sophisticated tax planning techniques to minimize estate taxes and maximize wealth transfer...
+                                Explore the emotional aspects of business transition and how to prepare yourself mentally for this major life change...
                             </p>
-                            <a href="#" class="blog__link">Read More <i class="fas fa-arrow-right"></i></a>
+                            <a href="assets/documents/business-transition-readiness.pdf" target="_blank" class="blog__link">Read More <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </article>
                 </div>
 
                 <div class="blog__cta">
-                    <a href="#" class="btn btn--secondary btn--large">
-                        <i class="fas fa-rss"></i>
-                        View All Blog Posts
+                    <a href="blog.html" class="btn btn--secondary btn--large">
+                        View All Blog Posts <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -671,7 +673,7 @@
                             <li><a href="#team" class="footer__link">Our Team</a></li>
                             <li><a href="#" class="footer__link">Careers</a></li>
                             <li><a href="#" class="footer__link">Resources</a></li>
-                            <li><a href="#" class="footer__link">Blog</a></li>
+                            <li><a href="blog.html" class="footer__link">Blog</a></li>
                             <li><a href="#contact" class="footer__link">Contact</a></li>
                         </ul>
                     </div>
@@ -713,6 +715,51 @@
     <button class="scroll-top" id="scroll-top">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- Newsletter Popup Modal -->
+    <div class="newsletter-modal" id="newsletter-modal">
+        <div class="newsletter-modal__overlay"></div>
+        <div class="newsletter-modal__content">
+            <button class="newsletter-modal__close" id="newsletter-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="newsletter-modal__header">
+                <div class="newsletter-modal__icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3 class="newsletter-modal__title">Stay Updated with Dovetail</h3>
+                <p class="newsletter-modal__description">
+                    Get our latest insights on financial planning, market trends, and wealth management strategies delivered directly to your inbox.
+                </p>
+            </div>
+            <form class="newsletter-modal__form" id="newsletter-form">
+                <div class="newsletter-modal__input-group">
+                    <input type="email" placeholder="Enter your email address" class="newsletter-modal__input" id="newsletter-email" required>
+                    <button type="submit" class="btn btn--primary newsletter-modal__btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Subscribe
+                    </button>
+                </div>
+                <div class="newsletter-modal__features">
+                    <div class="newsletter-modal__feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Weekly financial insights</span>
+                    </div>
+                    <div class="newsletter-modal__feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Market updates & analysis</span>
+                    </div>
+                    <div class="newsletter-modal__feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Exclusive planning tips</span>
+                    </div>
+                </div>
+                <p class="newsletter-modal__privacy">
+                    We respect your privacy. Unsubscribe at any time.
+                </p>
+            </form>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="assets/js/main.js"></script>

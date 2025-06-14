@@ -48,18 +48,20 @@ function scrollHeader(){
 window.addEventListener('scroll', scrollHeader)
 
 /*===== SCROLL REVEAL ANIMATION =====*/
-const sr = ScrollReveal({
-    origin: 'top',
-    distance: '60px',
-    duration: 2000,
-    delay: 200,
-});
+if (typeof ScrollReveal !== 'undefined') {
+    const sr = ScrollReveal({
+        origin: 'top',
+        distance: '60px',
+        duration: 2000,
+        delay: 200,
+    });
 
-sr.reveal('.hero__content, .section__title',{}); 
-sr.reveal('.hero__img',{delay: 400});
-sr.reveal('.hero__social-icon',{interval: 200});
-sr.reveal('.about__img, .contact__form',{origin: 'left'});
-sr.reveal('.about__content, .contact__content',{origin: 'right'});
+    sr.reveal('.hero__content, .section__title',{}); 
+    sr.reveal('.hero__img',{delay: 400});
+    sr.reveal('.hero__social-icon',{interval: 200});
+    sr.reveal('.about__img, .contact__form',{origin: 'left'});
+    sr.reveal('.about__content, .contact__content',{origin: 'right'});
+}
 
 /*===== OPTIMIZE FOR PRINT =====*/
 function optimizeForPrint() {

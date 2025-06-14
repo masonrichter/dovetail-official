@@ -1,0 +1,61 @@
+{
+  "name": "dovetail-wealth-management",
+  "version": "1.0.0",
+  "description": "Modern, responsive website for Dovetail Wealth Management - Premier financial advisors in Northbrook, IL",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server .",
+    "dev": "live-server . --port=3000 --open=/index.html",
+    "build": "npm run minify-css && npm run minify-js",
+    "minify-css": "cleancss -o assets/css/style.min.css assets/css/style.css",
+    "minify-js": "uglifyjs assets/js/main.js -o assets/js/main.min.js",
+    "serve": "http-server . -p 8000",
+    "validate": "html-validate index.html",
+    "lighthouse": "lighthouse http://localhost:8000 --output=html",
+    "deploy": "npm run build && npm run validate"
+  },
+  "keywords": [
+    "financial-advisor",
+    "wealth-management",
+    "northbrook",
+    "investment-planning",
+    "retirement-planning",
+    "responsive-website",
+    "modern-design"
+  ],
+  "author": {
+    "name": "Dovetail Wealth Management",
+    "email": "support@dovetailwp.com",
+    "url": "https://www.dovetailwp.com"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "@lighthouse-ci/cli": "^0.12.0",
+    "clean-css-cli": "^5.6.2",
+    "html-validate": "^8.5.0",
+    "http-server": "^14.1.1",
+    "lighthouse": "^11.2.0",
+    "live-server": "^1.2.2",
+    "uglify-js": "^3.17.4"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dovetail-wealth/website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dovetail-wealth/website/issues",
+    "email": "support@dovetailwp.com"
+  },
+  "homepage": "https://www.dovetailwp.com",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+} 

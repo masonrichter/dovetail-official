@@ -277,24 +277,23 @@ img {
 .nav__logo {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: var(--mb-0-5);
   font-weight: var(--font-bold);
   font-size: 1.25rem;
   color: var(--text-color);
 }
 
-.nav__logo-icon {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .nav__logo-icon img {
-  width: 40px;
-  height: 40px;
+  width: 370px;
+  height: 100px;
   object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .nav__logo-text {

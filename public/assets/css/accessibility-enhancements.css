@@ -1,0 +1,159 @@
+/* ===== ACCESSIBILITY ENHANCEMENTS FOR TEAM IMAGES ===== */
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Enhanced focus indicators for team images */
+.team__photo img:focus {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .team__photo img {
+    border: 2px solid;
+    border-radius: 50%;
+  }
+  
+  .team__member {
+    border: 1px solid;
+    forced-color-adjust: none;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .team__member {
+    transition: none;
+  }
+  
+  .team__photo img {
+    transition: none;
+  }
+}
+
+/* Enhanced team contact links */
+.team__contact {
+  display: flex;
+  gap: var(--mb-1);
+  margin-top: var(--mb-1);
+  justify-content: center;
+}
+
+.team__contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mb-0-25);
+  padding: var(--mb-0-5) var(--mb-0-75);
+  background: var(--accent-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  transition: var(--transition);
+}
+
+.team__contact a:hover,
+.team__contact a:focus {
+  background: var(--primary-color);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.team__contact a:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+/* Responsive image optimization */
+.team__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+/* Hover effects for better interaction feedback */
+.team__member:hover .team__photo img {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+/* Ensure proper aspect ratio */
+.team__photo {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: var(--mb-1-5);
+}
+
+/* Print styles for team photos */
+@media print {
+  .team__photo img {
+    filter: grayscale(100%);
+    break-inside: avoid;
+  }
+  
+  .team__contact {
+    display: none;
+  }
+}
+
+/* Dark mode support (if you implement it) */
+@media (prefers-color-scheme: dark) {
+  .team__contact a {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .team__contact a:hover,
+  .team__contact a:focus {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+  }
+}
+
+/* Error state for failed image loads */
+.team__photo img[src=""],
+.team__photo img:not([src]),
+.team__photo img[src="#"] {
+  display: none;
+}
+
+.team__photo img[alt]:after {
+  content: attr(alt);
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--accent-color);
+  padding: var(--mb-1);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: var(--small-font-size);
+  color: var(--text-color-light);
+  text-align: center;
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} 

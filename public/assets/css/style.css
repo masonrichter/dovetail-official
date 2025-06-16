@@ -289,6 +289,19 @@ img {
   order: -1;
   margin-right: auto;
   margin-left: -8rem;
+  position: relative;
+}
+
+.nav__logo::after {
+  content: '';
+  width: 1px;
+  height: 40px;
+  background-color: #E2E8F0;
+  position: fixed;
+  left: 400px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
 }
 
 .nav__logo-icon {
@@ -341,7 +354,13 @@ img {
 }
 
 .nav__menu {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  flex: none;
+  display: flex;
+  justify-content: center;
+  margin-right: 0;
 }
 
 .nav__list {
@@ -383,13 +402,35 @@ img {
   align-items: center;
   gap: 2rem;
   margin-left: auto;
+  position: relative;
+  width: auto;
+  justify-content: flex-end;
+  padding-right: 0;
+}
+
+.nav__actions::before {
+  content: '';
+  width: 1px;
+  height: 40px;
+  background-color: #E2E8F0;
+  position: fixed;
+  right: 400px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
 }
 
 .nav__actions .btn--primary {
-  padding: 0.75rem 1.5rem;
-  font-size: var(--small-font-size);
-  margin-right: 0;
-  margin-left: auto;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: var(--font-semi-bold);
+  margin: 0;
+  min-width: 180px;
+  position: fixed;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
 }
 
 .nav__actions .btn--primary:hover {
@@ -1895,9 +1936,16 @@ img {
     max-height: 50px;
   }
   
+  .nav__actions::before {
+    height: 30px;
+    right: 8rem;
+  }
+
   .nav__actions .btn--primary {
-    padding: 0.6rem 1.25rem;
-    font-size: 0.75rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    min-width: 150px;
+    right: 0.75rem;
   }
 
   .nav__menu {
@@ -1910,6 +1958,8 @@ img {
     padding: 6rem 2rem 2rem;
     transition: var(--transition);
     z-index: var(--z-fixed);
+    margin-right: 0 !important;
+    justify-content: flex-start !important;
   }
 
   .nav__menu.show-menu {
@@ -2043,6 +2093,11 @@ img {
   .footer__legal {
     justify-content: center;
   }
+  
+  .nav__logo::after {
+    height: 35px;
+    right: -1.5rem;
+  }
 }
 
 @media screen and (max-width: 576px) {
@@ -2059,9 +2114,16 @@ img {
     max-height: 45px;
   }
   
+  .nav__actions::before {
+    height: 30px;
+    right: 8rem;
+  }
+
   .nav__actions .btn--primary {
-    padding: 0.5rem 1rem;
-    font-size: 0.688rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+    min-width: 130px;
+    right: 0.5rem;
   }
 
   .hero__tagline {
@@ -2131,6 +2193,11 @@ img {
   .trusted-by__logo-img {
     height: 40px;
     max-width: 140px;
+  }
+  
+  .nav__logo::after {
+    height: 30px;
+    right: -1rem;
   }
 }
 
@@ -2725,3 +2792,16 @@ img {
     transform: rotate(360deg);
   }
 } 
+
+/* Desktop navigation centering adjustment */
+@media screen and (min-width: 769px) {
+  .nav__menu {
+    margin-right: 200px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .nav__menu {
+    margin-right: 200px;
+  }
+}

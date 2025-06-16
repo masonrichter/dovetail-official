@@ -1,0 +1,17 @@
+/* ===== Colors ===== */
+--primary-color: #2D3748;
+--primary-color-alt: #4A5568;
+--primary-color-light: #718096;
+--secondary-color: #C9A961;
+--accent-color: #F7F9FC;
+--text-color: #1A202C;
+--text-color-light: #4A5568;
+--text-color-muted: #718096;
+--body-color: #FFFFFF;
+--container-color: #FFFFFF;
+--border-color: #E2E8F0;
+--shadow-color: rgba(45, 55, 72, 0.15);
+--shadow-color-light: rgba(45, 55, 72, 0.08);
+--gradient-primary: linear-gradient(135deg, #2D3748 0%, #4A5568 100%);
+--gradient-secondary: linear-gradient(135deg, #C9A961 0%, #D4B76A 100%);
+--gradient-dark: linear-gradient(135deg, #1A202C 0%, #2D3748 100%); 

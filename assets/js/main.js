@@ -139,8 +139,8 @@ function initNewsletterModal() {
     // Check if newsletter was already shown in this session
     if (sessionStorage.getItem('newsletterShown')) return;
 
-    // Show newsletter after 20 seconds
-    newsletterTimer = setTimeout(showNewsletterModal, 20000);
+    // Show newsletter after 10 seconds
+    newsletterTimer = setTimeout(showNewsletterModal, 10000);
 
     // Close modal events
     if (newsletterCloseBtn) {
@@ -184,7 +184,7 @@ function closeNewsletterModal() {
         newsletterModal.classList.remove('show');
         document.body.style.overflow = '';
         
-        // Clear timer if modal is closed before 20 seconds
+        // Clear timer if modal is closed before 10 seconds
         if (newsletterTimer) {
             clearTimeout(newsletterTimer);
         }

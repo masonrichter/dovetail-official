@@ -5,8 +5,12 @@
   "framework": null,
   "rewrites": [
     {
+      "source": "/StaticWebsite/admin",
+      "destination": "/StaticWebsite/admin/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/public/$1"
     }
   ]
-} 
+}

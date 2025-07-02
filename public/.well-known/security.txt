@@ -1,0 +1,8 @@
+Contact: mailto:security@dovetailwp.com
+Expires: 2025-12-31T23:59:59.000Z
+Preferred-Languages: en
+Policy: https://www.dovetailwp.com/security-policy
+Hiring: https://www.dovetailwp.com/careers
+# Our security address
+Encryption: https://www.dovetailwp.com/pgp-key.txt
+Acknowledgments: https://www.dovetailwp.com/security-acknowledgments 

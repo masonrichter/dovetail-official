@@ -4,8 +4,10 @@ const showMenu = (toggleId, navId) =>{
           nav = document.getElementById(navId)
 
     if(toggle && nav){
-        toggle.addEventListener('click', ()=>{
-            nav.classList.toggle('show-menu')
+        toggle.addEventListener('click', (e)=>{
+            e.stopPropagation();
+            nav.classList.add('show-menu');
+            document.body.style.overflow = 'hidden';
         })
     }
 }
@@ -13,12 +15,56 @@ showMenu('nav-toggle','nav-menu')
 
 /*===== MENU HIDDEN =====*/
 const navLink = document.querySelectorAll('.nav__link')
+const navMenu = document.getElementById('nav-menu')
+const navClose = document.getElementById('nav-close')
 
-function linkAction(){
-    const navMenu = document.getElementById('nav-menu')
-    navMenu.classList.remove('show-menu')
+function hideMenu() {
+    if (navMenu) {
+        navMenu.classList.remove('show-menu')
+        document.body.style.overflow = '';
+    }
 }
-navLink.forEach(n => n.addEventListener('click', linkAction))
+
+// Close menu when clicking on a nav link
+navLink.forEach(n => n.addEventListener('click', hideMenu))
+
+// Close menu when clicking the close button
+if (navClose) {
+    navClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hideMenu();
+    })
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (navMenu && navMenu.classList.contains('show-menu') && 
+        !navMenu.contains(e.target) && 
+        !document.getElementById('nav-toggle').contains(e.target)) {
+        hideMenu();
+    }
+})
+
+// Handle touch swipe to close menu
+let touchStartX = 0;
+let touchEndX = 0;
+
+navMenu.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+}, false);
+
+navMenu.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, false);
+
+function handleSwipe() {
+    const swipeThreshold = 100;
+    if (touchEndX - touchStartX > swipeThreshold) {
+        // Swiped right - close menu
+        hideMenu();
+    }
+}
 
 /*===== SCROLL SECTIONS ACTIVE LINK =====*/
 const sections = document.querySelectorAll('section[id]')
@@ -121,3 +167,283 @@ function optimizeForPrint() {
 document.addEventListener('DOMContentLoaded', function() {
     optimizeForPrint();
 });
+
+/*==================== MOBILE MENU ====================*/
+document.addEventListener('DOMContentLoaded', function() {
+    const navMenu = document.getElementById('nav-menu');
+    const navToggle = document.getElementById('nav-toggle');
+    const navClose = document.getElementById('nav-close');
+    const navLinks = document.querySelectorAll('.nav__link');
+
+    /* Show menu */
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.add('show-menu');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+        });
+    }
+
+    /* Hide menu */
+    if (navClose) {
+        navClose.addEventListener('click', () => {
+            navMenu.classList.remove('show-menu');
+            document.body.style.overflow = ''; // Restore scrolling
+        });
+    }
+
+    /* Close menu when clicking outside */
+    document.addEventListener('click', (e) => {
+        if (navMenu.classList.contains('show-menu') && 
+            !navMenu.contains(e.target) && 
+            !navToggle.contains(e.target)) {
+            navMenu.classList.remove('show-menu');
+            document.body.style.overflow = '';
+        }
+    });
+
+    /* Close menu when clicking a nav link */
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('show-menu');
+            document.body.style.overflow = '';
+        });
+    });
+
+    /* Handle touch events for better mobile experience */
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    navMenu.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    navMenu.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+        const swipeThreshold = 100;
+        if (touchStartX - touchEndX > swipeThreshold) {
+            // Swiped left - close menu
+            navMenu.classList.remove('show-menu');
+            document.body.style.overflow = '';
+        }
+    }
+});
+
+/*===== SECURITY CONFIGURATIONS =====*/
+// Prevent XSS in dynamic content
+function sanitizeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// Secure event handlers
+function addSecureEventListener(element, event, handler) {
+    if (element) {
+        element.addEventListener(event, (e) => {
+            try {
+                handler(e);
+            } catch (error) {
+                console.error('Error in event handler:', error);
+            }
+        });
+    }
+}
+
+// Secure localStorage wrapper
+const secureStorage = {
+    set: function(key, value) {
+        try {
+            const sanitizedKey = sanitizeHTML(key);
+            const sanitizedValue = typeof value === 'string' ? sanitizeHTML(value) : JSON.stringify(value);
+            localStorage.setItem(sanitizedKey, sanitizedValue);
+        } catch (e) {
+            console.error('Error setting localStorage:', e);
+        }
+    },
+    get: function(key) {
+        try {
+            const sanitizedKey = sanitizeHTML(key);
+            return localStorage.getItem(sanitizedKey);
+        } catch (e) {
+            console.error('Error getting localStorage:', e);
+            return null;
+        }
+    }
+};
+
+// Security check for external links
+function secureExternalLinks() {
+    const links = document.querySelectorAll('a[href^="http"]');
+    links.forEach(link => {
+        if (!link.href.startsWith(window.location.origin)) {
+            link.setAttribute('rel', 'noopener noreferrer');
+            link.setAttribute('target', '_blank');
+        }
+    });
+}
+
+// Form input validation
+function validateFormInput(input) {
+    const value = input.value.trim();
+    const type = input.getAttribute('type');
+    
+    switch(type) {
+        case 'email':
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        case 'tel':
+            return /^[\d\s-+()]{10,}$/.test(value);
+        case 'text':
+            return value.length > 0 && value.length <= 255;
+        default:
+            return true;
+    }
+}
+
+// Initialize security measures
+document.addEventListener('DOMContentLoaded', function() {
+    secureExternalLinks();
+    
+    // Secure all forms
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            
+            form.querySelectorAll('input, textarea').forEach(input => {
+                if (!validateFormInput(input)) {
+                    isValid = false;
+                    input.classList.add('error');
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+            
+            if (isValid) {
+                // Process form submission
+                console.log('Form is valid, processing submission...');
+            }
+        });
+    });
+});
+
+// Mobile Menu Functionality
+const navMenu = document.querySelector('.nav__menu');
+const navToggle = document.querySelector('.nav__toggle');
+const navClose = document.querySelector('.nav__close');
+const navLinks = document.querySelectorAll('.nav__link');
+
+// Show menu
+if (navToggle) {
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.add('show-menu');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  });
+}
+
+// Hide menu
+if (navClose) {
+  navClose.addEventListener('click', () => {
+    navMenu.classList.remove('show-menu');
+    document.body.style.overflow = ''; // Restore scrolling
+  });
+}
+
+// Close menu when clicking on a nav link
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    navMenu.classList.remove('show-menu');
+    document.body.style.overflow = ''; // Restore scrolling
+  });
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (navMenu.classList.contains('show-menu') && 
+      !navMenu.contains(e.target) && 
+      !navToggle.contains(e.target)) {
+    navMenu.classList.remove('show-menu');
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+});
+
+// Add touch event handling for mobile devices
+let touchStartY = 0;
+let touchEndY = 0;
+
+document.addEventListener('touchstart', (e) => {
+  touchStartY = e.touches[0].clientY;
+});
+
+document.addEventListener('touchmove', (e) => {
+  if (navMenu.classList.contains('show-menu')) {
+    e.preventDefault(); // Prevent page scroll when menu is open
+  }
+}, { passive: false });
+
+document.addEventListener('touchend', (e) => {
+  touchEndY = e.changedTouches[0].clientY;
+  const touchDiff = touchStartY - touchEndY;
+
+  // If swipe down is detected when menu is open, close it
+  if (navMenu.classList.contains('show-menu') && touchDiff < -50) {
+    navMenu.classList.remove('show-menu');
+    document.body.style.overflow = '';
+  }
+});
+
+// Add active link state
+function setActiveLink() {
+  const sections = document.querySelectorAll('section[id]');
+  
+  window.addEventListener('scroll', () => {
+    const scrollY = window.pageYOffset;
+
+    sections.forEach(section => {
+      const sectionHeight = section.offsetHeight;
+      const sectionTop = section.offsetTop - 100;
+      const sectionId = section.getAttribute('id');
+      const navLink = document.querySelector(`.nav__link[href*="${sectionId}"]`);
+
+      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+        navLink?.classList.add('active-link');
+      } else {
+        navLink?.classList.remove('active-link');
+      }
+    });
+  });
+}
+
+setActiveLink();
+
+// Add smooth scrolling for iOS
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+
+
+});
+
+
+
+
+
+
+
+
